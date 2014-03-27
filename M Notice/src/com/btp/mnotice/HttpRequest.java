@@ -109,10 +109,10 @@ public class HttpRequest{
                 ret = EntityUtils.toString(response.getEntity());
             }
         } catch (Exception e) {
-            Log.e("Your App Name Here", "HttpUtils: " + e);
+            Log.e("Client Info", "HttpUtils: " + e);
         }
 
-        Log.d("Your App Name Here", "Returning value:" + ret);
+        Log.d("Client Info", "Returning value:" + ret);
 
         return ret;
     }

@@ -19,6 +19,7 @@ import org.apache.http.message.BasicNameValuePair;
 import com.btp.mnotice.MyHTTPD;
 import com.btp.mnotice.R;
 
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -68,13 +69,22 @@ public class MainActivity extends Activity
 		//	Location code
 		
 		LocationManager manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		//manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+		
+		
+	     Criteria criteria = new Criteria();
+	     String bestProvider = manager.getBestProvider(criteria, false);
+	     Location location = manager.getLastKnownLocation(bestProvider);
+			latitude = location.getLatitude();
+			longitude = location.getLongitude();
+		
 		LocationListener listener = new LocationListener(){
 
 			@Override
 			public void onLocationChanged(Location location) {
 				// TODO Auto-generated method stub
-				latitude = location.getLatitude();
-				longitude = location.getLongitude();
+//				latitude = location.getLatitude();
+//				longitude = location.getLongitude();
 				
 			}
 
@@ -330,14 +340,11 @@ public class MainActivity extends Activity
 	}
 	
 	public void clientInfo()
-	{		
-		//	Time code
-		final String myDateTime = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-		
+	{				
 		//	client info code
 		String deviceName = android.os.Build.MODEL;
 		//System.out.println("Device Name--"+deviceName);
-		String s = deviceName + ":" + latitude + ":" + longitude + ":" + myDateTime;
+		String s = deviceName + "#" + latitude + "#" + longitude;
 		refreshResult = s;
 		new inforequest(s,serverip).execute();
 	}

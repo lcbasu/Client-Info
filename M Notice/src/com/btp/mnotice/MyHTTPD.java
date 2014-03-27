@@ -11,6 +11,7 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,15 +164,20 @@ public class MyHTTPD extends NanoHTTPD
 			String totalResultFoundStr = ""; 
 
 			//clientip = query + clientip;
+			
+			
+			
+			
+			
 
 			try
 			{
-				String[] split=query.split(":");
+				String[] split=query.split("#");
 
 				deviceName = split[0];
 				latitude = split[1];
 				longitude = split[2];
-				loginTimestamp = split[3];
+				loginTimestamp = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
 				
 				File set1 = new File(Environment.getExternalStorageDirectory().getPath() + "/clientinfo.txt");
 				FileWriter fw = new FileWriter(set1.getAbsoluteFile(), true);
